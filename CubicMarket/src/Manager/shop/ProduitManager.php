@@ -1,17 +1,63 @@
 <?php
 
+use src\Entities\shop\Produit;
+
 class ProduitManager {
     private $db;
     public function __construct(PDO $db) {
         $this->db = $db;
     }
-    public function add(Produit $produit)
+    public function add(Produit $produit, Utilisateur  $utilisateur)
     {
-        $request = "INSERT INTO Products () VALUES (:desc)";
+        if ($utilisateur->getRole() === 'ROLE_ADMIN') {
+
+            $request = "INSERT INTO Products (ProductName, Description, Image, Price, Stock) VALUES (:name, :desc, :image, :price, :stock)";
+            $stmt = $this->db->prepare($request);
+            $stmt->execute([
+                "name" => $produit->getNom(),
+                "desc" => $produit->getDescription(),
+                "image" => $produit->getImage(),
+                "price" => $produit->getPrix(),
+                "stock" => $produit->getQuantite()
+            ]);
+        } else {
+            echo "vous n'avez pas les droits";
+        }
+    }
+    public function update(Produit $produit, Utilisateur $utilisateur, $quantite){
+        if ($utilisateur->getRole() === 'ROLE_ADMIN') {
+            $request = "UPDATE Products SET Stock = :stock WHERE id = :id";
+            $stmt = $this->db->prepare($request);
+            $stmt->execute([
+                "stock" => $quantite,
+                "id" => $produit->getId()
+            ]);
+        }
+    }
+    public function delete(Produit $produit){
+        $request = "DELETE FROM Products WHERE id = :id";
         $stmt = $this->db->prepare($request);
         $stmt->execute([
-            "desc" => $produit->getDescription()
+            "id" => $produit->getId()
         ]);
+    }
+    public function getAll(){
+        $produits = [];
+        $request = "SELECT * FROM Products";
+        $stmt = $this->db->query($request);
+        $dataAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($dataAll as $dataOne){
+            $produit = new Produit();
+            $produit->setId($dataOne['id']);
+            $produit->setNom($dataOne['ProductName']);
+            $produit->setDescription($dataOne['Description']);
+            $produit->setImage($dataOne['Image']);
+            $produit->setPrix($dataOne['Price']);
+            $produit->setQuantite($dataOne['Stock']);
+            $produits[] = $produit;
+        }
+    }
     }
 
 

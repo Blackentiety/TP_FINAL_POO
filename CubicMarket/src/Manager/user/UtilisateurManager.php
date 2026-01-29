@@ -28,6 +28,7 @@ class UtilisateurManager{
             $utilisateur->setUsername($dataOne['Username']);
             $utilisateur->setEmail($dataOne['Email']);
             $utilisateur->setRole($dataOne['Rank']);
+            $utilisateurAll[] = $utilisateur;
 
         }
 
