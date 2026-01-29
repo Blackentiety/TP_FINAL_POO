@@ -46,6 +46,27 @@ CREATE TABLE IF NOT EXISTS Orders (
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID
 );
 
+INSERT INTO Products (ProductName, Description, Image, Price, Stock) VALUES
+('Excalibur Sword', 'A legendary sword of immense power.', 'excalibur.png', 1500.00, 10),
+('Dragon Bow', 'A bow crafted from dragon bones.', 'dragon_bow.png', 1200.00, 15),
+('Rang', 'Grants access to exclusive items.', 'rank_image.png', 500.00, 100);
+
+INSERT INTO Weapons (ProductID, Damage, Range) VALUES
+(1, 100, 5),
+(2, 80, 15);
+
+INSERT INTO Rank (RankName, Privileges, ProductID) VALUES
+('Knight', 'Access to knight-level items and discounts.', 3),
+('Archer', 'Access to archer-level items and discounts.', 3);
+
+INSERT INTO User (Username, PasswordHash, Email, RankID, Role) VALUES
+('hero123', 'hashed_password_1', 'hero123@example.com', 1, 'ROLE_USER'),
+('archer456', 'hashed_password_2', 'archer456@example.com', 2, 'ROLE_USER'),
+('admin', 'hashed_password_admin', 'admin@example.com', 3, 'ROLE_ADMIN');
+
+
+
+
 
 
 
