@@ -24,12 +24,16 @@ class ProduitManager {
             echo "vous n'avez pas les droits";
         }
     }
-    public function update(Produit $produit, Utilisateur $utilisateur, $quantite){
+    public function update(Produit $produit, Utilisateur $utilisateur){
         if ($utilisateur->getRole() === 'ROLE_ADMIN') {
-            $request = "UPDATE Products SET Stock = :stock WHERE id = :id";
+            $request = "UPDATE Products SET ProductName = :name, Description = :desc, Image = :image, Price = :prix, Stock = :stock WHERE id = :id";
             $stmt = $this->db->prepare($request);
             $stmt->execute([
-                "stock" => $quantite,
+                "name" => $produit->getNom(),
+                "desc" => $produit->getDescription(),
+                "image" => $produit->getImage(),
+                "price" => $produit->getPrix(),
+                "stock" => $produit->getQuantite(),
                 "id" => $produit->getId()
             ]);
         }
