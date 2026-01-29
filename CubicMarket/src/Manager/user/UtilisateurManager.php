@@ -33,5 +33,23 @@ class UtilisateurManager{
 
     }
 
+    public function deleteUtilisateur($id){
+        $request = "DELETE FROM Users WHERE UserId = :id";
+        $stmt = $this->db->prepare($request);
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
+
+    public function updateUtilisateur(Utilisateur $utilisateur, $rank){
+        $id = $utilisateur->getId();
+        $request = "UPDATE Users SET Rank = :rank WHERE UserId = :id";
+        $stmt = $this->db->prepare($request);
+        $stmt->execute([
+            'rank' => $rank,
+        ]);
+
+    }
+
 
 }
