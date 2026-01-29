@@ -1,6 +1,6 @@
 <?php
 
-namespace Entities\shop;
+namespace src\Entities\shop;
 
 class Produit{
 
