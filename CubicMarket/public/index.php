@@ -1,2 +1,10 @@
 <?php
-// <br>
+spl_autoload_register(function ($class) {
+    $file = str_replace('\\', '/', $class) . '.php';
+    if (file_exists($file)) require $file;
+});
+
+use src\Entities\shop\Produit;
+use src\Entities\shop\Grade;
+use src\Entities\shop\Arme;
+
