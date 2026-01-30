@@ -12,3 +12,5 @@ use src\Manager\shop\ProduitManager;
 use src\Manager\shop\ArmeManager;
 
 require_once "../config/db.php";
+
+

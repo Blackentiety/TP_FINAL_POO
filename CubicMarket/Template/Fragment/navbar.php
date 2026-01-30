@@ -1,19 +1,9 @@
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title><?= $title ?? "Cubic Market" ?></title>
-<link rel="stylesheet" href="/public/style.css">
-</head>
+<nav class="navbar">
+    <ul>
+        <li><a href="/public/index.php?page=home">Accueil</a></li>
+        <li><a href="/public/index.php?page=login">Connexion</a></li>
+        <li><a href="/public/index.php?page=product">Produits</a></li>
+    </ul>
+</nav>
 
-<body>
-
-<?php include __DIR__ . '/../fragment/navbar.php'; ?>
-
-<main>
-    <?= $produit ?>
-</main>
-
-</body>
-</html>
