@@ -2,6 +2,8 @@
 
 namespace src\Entities\shop;
 
+
+
 class Produit{
 
     private $id;

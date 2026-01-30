@@ -31,8 +31,12 @@ if ($uri[0] !== '/') $uri = '/' . $uri; // Sécurise le slash
 switch ($uri) {
     case '/':
     case '/home':
+        $produitManager = new ProduitManager($db);
+        $produits = $produitManager->getAll();
+
         require '../view/home.php';
         break;
+
     case '/login':
         $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,6 +61,15 @@ switch ($uri) {
         require '../view/login.php';
         break;
     case '/product':
+        $id = $_GET['id'] ?? null;
+
+        $produit = null;
+
+        if ($id) {
+            $produitManager = new ProduitManager($db);
+            $produit = $produitManager->getById($id);
+        }
+
         require '../view/product_details.php';
         break;
     case '/inscription':
@@ -129,6 +142,7 @@ switch ($uri) {
         $produits = $produitManager->getAll();
         require '../view/admin-page.php';
         break;
+
     default:
         http_response_code(404);
         echo "Page non trouvée";
