@@ -10,6 +10,10 @@
     <input type="password" name="password" id="password" required>
 
     <button type="submit">Se connecter</button>
+    <p class="no-account">
+        Pas de compte Cubic Market?
+        <a href="/public/index.php?page=inscription" class="btn-secondary">Créer un compte</a>
+    </p>
 </form>
 
 <?php
