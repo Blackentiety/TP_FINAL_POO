@@ -15,12 +15,12 @@ use src\Manager\user\UtilisateurManager;
 
 require_once "../config/db.php";
 
-$admin = new Utilisateur();
-$admin->setUsername("admin");
-$admin->setPassword("admin");
-$admin->setEmail("admin@example.com");
-$admin->setRole("ROLE_ADMIN");
-
-$userManager = new UtilisateurManager($db);
-$userManager->addAdmin($admin);
+//$admin = new Utilisateur();
+//$admin->setUsername("admin");
+//$admin->setPassword("admin");
+//$admin->setEmail("admin@example.com");
+//$admin->setRole("ROLE_ADMIN");
+//
+//$userManager = new UtilisateurManager($db);
+//$userManager->addAdmin($admin);
 
