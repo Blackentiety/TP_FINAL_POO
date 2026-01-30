@@ -22,6 +22,7 @@ class ProduitManager {
                 "price" => $produit->getPrix(),
                 "stock" => $produit->getQuantite()
             ]);
+
         } else {
             echo "vous n'avez pas les droits";
         }
