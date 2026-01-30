@@ -59,10 +59,9 @@ INSERT INTO Ranks (RankName, Privileges, ProductID) VALUES
 ('Knight', 'Access to knight-level items and discounts.', 3),
 ('Archer', 'Access to archer-level items and discounts.', 3);
 
--- INSERT INTO User (Username, PasswordHash, Email, RankID, Role) VALUES
--- ('hero123', 'hashed_password_1', 'hero123@example.com', 1, 'ROLE_USER'),
--- ('archer456', 'hashed_password_2', 'archer456@example.com', 2, 'ROLE_USER'),
--- ('admin', 'hashed_password_admin', 'admin@example.com', 3, 'ROLE_ADMIN');
+INSERT INTO User (Username, PasswordHash, Email, RankID, user_Role) VALUES
+(1, 'admin', '$2y$10$cqW8OysEe1GOEB29E/Y3Pec.K9vxPu9PVKsoXvMKi7DoG5qVW04jW', 'admin@example.com', NULL, 'ROLE_ADMIN');
+
 
 
 

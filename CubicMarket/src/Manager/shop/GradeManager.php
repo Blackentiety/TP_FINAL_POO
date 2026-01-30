@@ -2,6 +2,7 @@
 
 namespace src\Manager\shop;
 
+use PDO;
 class GradeManager {
     private $db;
 
@@ -11,7 +12,7 @@ class GradeManager {
 
     public function createGrade(Grade $grade, Utilisateur  $utilisateur) {
         if ($utilisateur->getRole() === 'ROLE_ADMIN') {
-            $request = "INSERT INTO Rank VALUES (:name, :Privilege, :idProduit)";
+            $request = "INSERT INTO Ranks VALUES (:name, :Privilege, :idProduit)";
             $stmt = $this->db->prepare($request);
             $stmt->execute([
                 "name" => $grade->getNom(),
@@ -25,7 +26,7 @@ class GradeManager {
 
     public function getGrades() {
         $grades = [];
-        $request = "SELECT * FROM Rank";
+        $request = "SELECT * FROM Ranks";
         $stmt = $this->db->prepare($request);
         $dataAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($dataAll as $dataOne) {
@@ -40,7 +41,7 @@ class GradeManager {
 
     public function updateGrade(Grade $grade, Utilisateur $utilisateur) {
         if ($utilisateur->getRole() === 'ROLE_ADMIN') {
-            $request = "UPDATE Rank SET RankName = :name, privilege = :privilege WHERE id = :idRank";
+            $request = "UPDATE Ranks SET RankName = :name, privilege = :privilege WHERE id = :idRank";
             $stmt = $this->db->prepare($request);
             $stmt->execute([
                 "name" => $grade->getNomGrade(),

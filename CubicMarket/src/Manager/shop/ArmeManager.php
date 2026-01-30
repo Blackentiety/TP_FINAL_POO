@@ -3,7 +3,7 @@
 namespace src\Manager\shop;
 
 use src\Entities\user\Utilisateur;
-
+use PDO;
 class ArmeManager {
     private $db;
     public function __construct(PDO $db) {
@@ -13,7 +13,7 @@ class ArmeManager {
     {
         if ($utilisateur->getRole() === 'ROLE_ADMIN') {
 
-            $request = "INSERT INTO Weapons (ProductID, Damage, Range) VALUES (:id, :damage, :range)";
+            $request = "INSERT INTO Weapons (ProductID, Damage, weapon_Range) VALUES (:id, :damage, :range)";
             $stmt = $this->db->prepare($request);
             $stmt->execute([
                 "id" => $arme->getId(),
@@ -26,7 +26,7 @@ class ArmeManager {
     }
     public function update(Arme $arme, Utilisateur $utilisateur){
         if ($utilisateur->getRole() === 'ROLE_ADMIN') {
-            $request = "UPDATE Products SET ProductID = :idProduct, Damage = :damage, Range = :range WHERE id = :id";
+            $request = "UPDATE Products SET ProductID = :idProduct, Damage = :damage, weapon_Range = :range WHERE id = :id";
             $stmt = $this->db->prepare($request);
             $stmt->execute([
                 "idProduct" => $arme->getId(),
@@ -57,7 +57,7 @@ class ArmeManager {
             $arme = new Arme();
             $arme->setIdArme($dataOne['WeaponID']);
             $arme->setDegat($dataOne['Damage']);
-            $arme->setRange($dataOne['Range']);
+            $arme->setRange($dataOne['weapon_Range']);
             $armes[] = $arme;
         }
     }

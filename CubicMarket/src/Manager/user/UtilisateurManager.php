@@ -1,6 +1,7 @@
 <?php
 
 namespace src\Manager\user;
+use PDO;
 class UtilisateurManager{
     private $db;
     public function __construct(PDO $db){
@@ -8,12 +9,23 @@ class UtilisateurManager{
     }
 
     public function addUtilisateur($utilisateur){
-        $request = "INSERT INTO Users (Username, PasswordHash, email) VALUES (:pseudo, :password, :email)";
+        $request = "INSERT INTO User (Username, PasswordHash, email) VALUES (:pseudo, :password, :email)";
         $stmt = $this->db->prepare($request);
         $stmt->execute([
             'pseudo'=> $utilisateur->getUsername(),
             'password' => $utilisateur->getPassword(),
             'email' => $utilisateur->getEmail()
+        ]);
+    }
+
+    public function addAdmin($utilisateur){
+        $request = "INSERT INTO User (Username, PasswordHash, email, user_Role) VALUES (:pseudo, :password, :email, :role)";
+        $stmt = $this->db->prepare($request);
+        $stmt->execute([
+            'pseudo'=> $utilisateur->getUsername(),
+            'password' => $utilisateur->getPassword(),
+            'email' => $utilisateur->getEmail(),
+            'role' => $utilisateur->getRole()
         ]);
     }
 
