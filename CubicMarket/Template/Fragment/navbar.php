@@ -1,9 +1,8 @@
-
 <nav class="navbar">
     <ul>
-        <li><a href="/public/index.php?page=home">Accueil</a></li>
-        <li><a href="/public/index.php?page=login">Connexion</a></li>
-        <li><a href="/public/index.php?page=product">Produits</a></li>
+        <li><a href="/CubicMarket/public/home">Accueil</a></li>
+        <li><a href="/CubicMarket/public/login">Connexion</a></li>
+        <li><a href="/CubicMarket/public/product">Produits</a></li>
     </ul>
 </nav>
 

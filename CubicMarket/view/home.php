@@ -1,4 +1,3 @@
-
 <h1>Bienvenue sur Cubic Market</h1>
 <p>Découvrez tous nos produits disponibles.</p>
 
@@ -14,7 +13,7 @@
 
             <span class="price"><?= htmlspecialchars($produit->getPrix()) ?> €</span>
 
-            <a class="btn" href="/public/index.php?page=product&id=<?= $produit->getId() ?>">
+            <a class="btn" href="/CubicMarket/public/product?id=<?= $produit->getId() ?>">
                 Voir le produit
             </a>
         </div>
