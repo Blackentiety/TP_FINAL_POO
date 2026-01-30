@@ -8,7 +8,7 @@
 
 <body>
 
-<?php include __DIR__ . '/../Fragment/navbar.php'; ?>
+<?php include __DIR__ . '/Fragment/navbar.php'; ?>
 
 <main>
     <?= $content ?>
