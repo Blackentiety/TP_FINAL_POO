@@ -37,7 +37,7 @@ class Utilisateur {
         $this->username = $username;
     }
     public function setPassword($password){
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
     public function setEmail($email){
         $this->email = $email;

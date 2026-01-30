@@ -53,5 +53,18 @@ class UtilisateurManager{
 
     }
 
+    public function login(string $email, string $passwordSaisi)
+    {
+        $req = $this->db->prepare("SELECT * FROM Users WHERE email = :email");
+        $req->execute(['email' => $email]);
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+
+        if ($data && password_verify($passwordSaisi, $data['PasswordHash'])) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
 
 }
