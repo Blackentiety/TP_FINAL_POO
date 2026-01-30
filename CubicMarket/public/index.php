@@ -40,8 +40,8 @@ switch ($uri) {
             $password = $_POST['password'] ?? '';
             $userManager = new UtilisateurManager($db);
             $user = $userManager->login($email, $password);
-            if ($user) {
-                $_SESSION['user'] = $user['UserId'];
+            if ($user && !empty($user['UserID'])) {
+                $_SESSION['user'] = $user['UserID'];
                 header('Location: /CubicMarket/public/home');
                 exit;
             } else {
@@ -53,6 +53,37 @@ switch ($uri) {
     case '/product':
         require '../view/product_details.php';
         break;
+    case '/inscription':
+        $error = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_POST['username'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $password_confirm = $_POST['password_confirm'] ?? '';
+
+            if ($username && $email && $password && $password_confirm) {
+                if ($password === $password_confirm) {
+                    $userManager = new UtilisateurManager($db);
+                    $utilisateur = new \src\Entities\user\Utilisateur();
+                    $utilisateur->setUsername($username);
+                    $utilisateur->setEmail($email);
+                    $utilisateur->setPassword($password);
+                    $userManager->addUtilisateur($utilisateur);
+                    header('Location: /CubicMarket/public/login');
+                    exit;
+                } else {
+                    $error = "Les mots de passe ne correspondent pas.";
+                }
+            } else {
+                $error = "Tous les champs sont obligatoires.";
+            }
+        }
+        require '../view/inscription.php';
+        break;
+    case '/logout':
+        session_destroy();
+        header('Location: /CubicMarket/public/login');
+        exit;
     default:
         http_response_code(404);
         echo "Page non trouvée";

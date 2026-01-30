@@ -2,7 +2,7 @@
 
 <h1>Inscription</h1>
 
-<form action="/public/index.php?page=inscription" method="post" class="register-form">
+<form action="/CubicMarket/public/inscription" method="post" class="register-form">
 
     <label for="username">Nom d'utilisateur</label>
     <input type="text" name="username" id="username" required>

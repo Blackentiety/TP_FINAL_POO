@@ -1,3 +1,6 @@
+<?php
+ob_start();
+?>
 <h1>Bienvenue sur Cubic Market</h1>
 <p>Découvrez tous nos produits disponibles.</p>
 
