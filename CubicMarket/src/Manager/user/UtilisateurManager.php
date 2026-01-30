@@ -31,7 +31,7 @@ class UtilisateurManager{
 
     public function getAll(){
         $utilisateurAll = [];
-        $request = "SELECT * FROM Users";
+        $request = "SELECT * FROM User";
         $stmt = $this->db->query($request);
         $dataAll = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -48,7 +48,7 @@ class UtilisateurManager{
     }
 
     public function deleteUtilisateur($id){
-        $request = "DELETE FROM Users WHERE UserId = :id";
+        $request = "DELETE FROM User WHERE UserId = :id";
         $stmt = $this->db->prepare($request);
         $stmt->execute([
             'id' => $id
@@ -57,17 +57,18 @@ class UtilisateurManager{
 
     public function updateUtilisateur(Utilisateur $utilisateur, $rank){
         $id = $utilisateur->getId();
-        $request = "UPDATE Users SET Rank = :rank WHERE UserId = :id";
+        $request = "UPDATE User SET RankID = :rank WHERE UserId = :id";
         $stmt = $this->db->prepare($request);
         $stmt->execute([
             'rank' => $rank,
+            'id' => $id
         ]);
 
     }
 
     public function login(string $email, string $passwordSaisi)
     {
-        $req = $this->db->prepare("SELECT * FROM Users WHERE email = :email");
+        $req = $this->db->prepare("SELECT * FROM User WHERE email = :email");
         $req->execute(['email' => $email]);
         $data = $req->fetch(PDO::FETCH_ASSOC);
 

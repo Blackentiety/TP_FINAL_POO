@@ -2,7 +2,11 @@
 
 <h1>Connexion</h1>
 
-<form action="/public/index.php?page=login" method="post" class="login-form">
+<?php if (!empty($error)): ?>
+    <div class="error-message"><?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
+
+<form action="/CubicMarket/public/login" method="post" class="login-form">
     <label for="email">Email</label>
     <input type="email" name="email" id="email" required>
 

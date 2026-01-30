@@ -14,6 +14,7 @@ use src\Manager\shop\ArmeManager;
 use src\Manager\user\UtilisateurManager;
 
 require_once "../config/db.php";
+session_start(); // Pour gérer la session utilisateur
 
 // Récupère le chemin demandé
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -24,17 +25,32 @@ if (strpos($uri, $base) === 0) {
     $uri = substr($uri, strlen($base));
 }
 if ($uri === '' || $uri === '/') $uri = '/home';
+if ($uri[0] !== '/') $uri = '/' . $uri; // Sécurise le slash
 
 // Routage basique
 switch ($uri) {
     case '/':
-    case 'home':
+    case '/home':
         require '../view/home.php';
         break;
-    case 'login':
+    case '/login':
+        $error = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $userManager = new UtilisateurManager($db);
+            $user = $userManager->login($email, $password);
+            if ($user) {
+                $_SESSION['user'] = $user['UserId'];
+                header('Location: /CubicMarket/public/home');
+                exit;
+            } else {
+                $error = "Identifiants invalides";
+            }
+        }
         require '../view/login.php';
         break;
-    case 'product':
+    case '/product':
         require '../view/product_details.php';
         break;
     default:
