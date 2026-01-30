@@ -42,7 +42,13 @@ switch ($uri) {
             $user = $userManager->login($email, $password);
             if ($user && !empty($user['UserID'])) {
                 $_SESSION['user'] = $user['UserID'];
-                header('Location: /CubicMarket/public/home');
+                $_SESSION['role'] = $user['user_Role'] ?? null; // Stocke le rôle
+
+                if (isset($user['user_Role']) && $user['user_Role'] === 'ROLE_ADMIN') {
+                    header('Location: /CubicMarket/public/admin');
+                } else {
+                    header('Location: /CubicMarket/public/home');
+                }
                 exit;
             } else {
                 $error = "Identifiants invalides";
@@ -84,6 +90,45 @@ switch ($uri) {
         session_destroy();
         header('Location: /CubicMarket/public/login');
         exit;
+    case '/admin':
+        if (!isset($_SESSION['user']) || ($_SESSION['role'] ?? '') !== 'ROLE_ADMIN') {
+            header('Location: /CubicMarket/public/login');
+            exit;
+        }
+
+        $produitManager = new ProduitManager($db);
+        $armeManager = new ArmeManager($db);
+        $gradeManager = new GradeManager($db);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
+            $type = $_POST['type'] ?? '';
+
+            if ($type === 'arme') {
+                // On crée l'objet Arme et on hydrate
+                $arme = new Arme();
+                $arme->setNom($_POST['nom']);
+                $arme->setDescription($_POST['description']);
+                $arme->setPrix($_POST['prix']);
+                $arme->setDegat($_POST['degats']);
+                $arme->setDistance($_POST['range']); // Rappel : utilise les ` ` en SQL pour Range
+                
+                $armeManager->add($arme);
+            } 
+            elseif ($type === 'grade') {
+                $grade = new Grade();
+                $grade->setNom($_POST['nom']);
+                $grade->setPrivilege($_POST['privilege']);
+                $grade->setIdProduit($_POST['produit_id']);
+                $gradeManager->add($grade);
+            }
+
+            header('Location: /CubicMarket/public/admin');
+            exit;
+        }
+
+        $produits = $produitManager->getAll();
+        require '../view/admin-page.php';
+        break;
     default:
         http_response_code(404);
         echo "Page non trouvée";
