@@ -1,5 +1,7 @@
 <?php
 
+namespace src\Manager\shop;
+
 use src\Entities\shop\Produit;
 
 class ProduitManager {

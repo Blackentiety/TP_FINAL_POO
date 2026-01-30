@@ -1,5 +1,6 @@
 <?php
 
+namespace src\Manager\user;
 class UtilisateurManager{
     private $db;
     public function __construct(PDO $db){

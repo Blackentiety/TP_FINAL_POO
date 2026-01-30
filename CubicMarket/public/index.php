@@ -7,4 +7,7 @@ spl_autoload_register(function ($class) {
 use src\Entities\shop\Produit;
 use src\Entities\shop\Grade;
 use src\Entities\shop\Arme;
+use src\Manager\shop\GradeManager;
+use src\Manager\shop\ProduitManager;
+use src\Manager\shop\ArmeManager;
 

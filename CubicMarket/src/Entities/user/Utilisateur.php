@@ -1,5 +1,6 @@
 <?php
 
+namespace src\Entities\user;
 class Utilisateur {
     private $id;
     private $username;

@@ -1,9 +1,8 @@
 <?php
 
-use MongoDB\Driver\Manager;
-use src\Entities\shop\Grade;
+namespace src\Manager\shop;
 
-class GradeManager extends ProduitManager {
+class GradeManager {
     private $db;
 
     public function __construct($db) {
