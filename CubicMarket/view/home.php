@@ -1,3 +1,9 @@
+<?php global $produits;
+ob_start();
+$produits = isset($produits) ? $produits : [];
+
+?>
+
 <h1>Bienvenue sur Cubic Market</h1>
 <p>Découvrez tous nos produits disponibles.</p>
 
